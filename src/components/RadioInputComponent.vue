@@ -1,0 +1,126 @@
+<template>
+  <div
+    class="radio-container"
+    v-for="option in options"
+    :key="option.id"
+    @click="optionClick(option)"
+  >
+    <div class="icon-radio-container">
+      <div class="big-circle"></div>
+      <div class="small-circle" v-if="selectedOption?.id === option.id"></div>
+    </div>
+    <div class="text-radio-container">{{ option.title }}</div>
+  </div>
+</template>
+
+<script setup lang="ts">
+/* -------------------------------------------------------------------------- */
+/* IMPORTS                                                                    */
+/* -------------------------------------------------------------------------- */
+import { onMounted, onUnmounted, ref } from 'vue';
+
+/* -------------------------------------------------------------------------- */
+/* LOCAL TYPES & INTERFACES                                                         */
+/* -------------------------------------------------------------------------- */
+
+interface Props {
+  /* list of radio options  */
+  options: Array<{
+    /** Unique numeric identifier for the radio option */
+    id: number;
+
+    /** Visible label displayed next to the radio button */
+    title: string;
+  }>;
+}
+
+interface Events {
+  // Emitted when a option is clicked
+  (
+    e: 'optionClick',
+    data: {
+      id: number;
+      title: string;
+    },
+  ): void;
+}
+/* -------------------------------------------------------------------------- */
+/* PROPS                                                                      */
+/* -------------------------------------------------------------------------- */
+const props = defineProps<Props>();
+/* -------------------------------------------------------------------------- */
+/* EMITS                                                                      */
+/* -------------------------------------------------------------------------- */
+const emit = defineEmits<Events>();
+
+/* -------------------------------------------------------------------------- */
+/* COMPOSABLES & STORES                                                       */
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* STATE (refs, reactive, constants)                                         */
+/* -------------------------------------------------------------------------- */
+const selectedOption = ref(props.options[0]);
+/* -------------------------------------------------------------------------- */
+/* COMPUTED                                                                   */
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* WATCHERS                                                                   */
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* METHODS                                                                    */
+/* -------------------------------------------------------------------------- */
+const optionClick = (opt: { id: number; title: string }) => {
+  console.log(opt);
+  selectedOption.value = opt;
+  emit('optionClick', selectedOption.value);
+};
+/* -------------------------------------------------------------------------- */
+/* LIFECYCLE HOOKS                                                            */
+/* -------------------------------------------------------------------------- */
+onMounted(() => {
+  console.log('Radio Component Mounted');
+});
+
+onUnmounted(() => {
+  console.log('Radio Component Unmounted');
+});
+</script>
+
+<style scoped lang="scss">
+.radio-container {
+  width: 100px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.icon-radio-container {
+  position: relative;
+
+  .big-circle {
+    width: 19px;
+    height: 19px;
+    border: 2px solid $secondary;
+    border-radius: 100%;
+  }
+
+  .small-circle {
+    width: 11px;
+    height: 11px;
+    background-color: $secondary;
+    border-radius: 100%;
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+  }
+}
+
+.text-radio-container {
+  font-size: 16px;
+}
+</style>

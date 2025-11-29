@@ -27,6 +27,15 @@ import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink
 const linksList: EssentialLinkProps[] = [
   {
     title: 'Button Component',
+    link: '/',
+  },
+  {
+    title: 'Radio Input Component',
+    link: '/radio',
+  },
+  {
+    title: 'Tab Component',
+    link: '/tab',
   },
 ];
 const leftDrawerOpen = ref(false);
