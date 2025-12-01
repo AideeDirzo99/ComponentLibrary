@@ -8,6 +8,7 @@ const routes: RouteRecordRaw[] = [
       { path: '', component: () => import('pages/ButtonPage.vue') },
       { path: 'radio', component: () => import('pages/RadioInputPage.vue') },
       { path: 'tab', component: () => import('pages/TabPage.vue') },
+      { path: 'itemList', component: () => import('pages/ItemListPage.vue') },
     ],
   },
 

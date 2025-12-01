@@ -37,6 +37,10 @@ const linksList: EssentialLinkProps[] = [
     title: 'Tab Component',
     link: '/tab',
   },
+  {
+    title: 'Item List Component',
+    link: '/itemList',
+  },
 ];
 const leftDrawerOpen = ref(false);
 

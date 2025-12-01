@@ -1,15 +1,17 @@
 <template>
-  <div
-    class="radio-container"
-    v-for="option in options"
-    :key="option.id"
-    @click="optionClick(option)"
-  >
-    <div class="icon-radio-container">
-      <div class="big-circle"></div>
-      <div class="small-circle" v-if="selectedOption?.id === option.id"></div>
+  <div class="main-item-container" v-for="item in itemList" :key="item.id" @click="itemClick(item)">
+    <div
+      class="circle-container"
+      :style="{
+        backgroundColor: item.iconBgColor ? item.iconBgColor : '#0c2d4f',
+      }"
+    >
+      <q-icon :name="item.icon ? item.icon : 'folder'" size="22px" color="indigo-1"></q-icon>
     </div>
-    <div class="text-radio-container">{{ option.title }}</div>
+    <div class="item-text-container">
+      <div class="item-title">{{ item.title }}</div>
+      <div class="item-description">{{ item.description }}</div>
+    </div>
   </div>
 </template>
 
@@ -17,6 +19,7 @@
 /* -------------------------------------------------------------------------- */
 /* IMPORTS                                                                    */
 /* -------------------------------------------------------------------------- */
+
 import { onMounted, onUnmounted, ref } from 'vue';
 
 /* -------------------------------------------------------------------------- */
@@ -24,23 +27,24 @@ import { onMounted, onUnmounted, ref } from 'vue';
 /* -------------------------------------------------------------------------- */
 
 interface Props {
-  /* list of radio options  */
-  options: Array<{
-    /** Unique numeric identifier for the radio option */
+  itemList: Array<{
     id: number;
-
-    /** Visible label displayed next to the radio button */
     title: string;
+    description: string;
+    icon?: string;
+    iconBgColor?: string;
   }>;
 }
 
 interface Events {
-  // Emitted when a option is clicked
   (
-    e: 'optionClick',
+    e: 'itemClick',
     data: {
       id: number;
       title: string;
+      description: string;
+      icon?: string;
+      iconBgColor?: string;
     },
   ): void;
 }
@@ -60,7 +64,7 @@ const emit = defineEmits<Events>();
 /* -------------------------------------------------------------------------- */
 /* STATE (refs, reactive, constants)                                         */
 /* -------------------------------------------------------------------------- */
-const selectedOption = ref(props.options[0]);
+const selectedItem = ref(props.itemList[0]);
 /* -------------------------------------------------------------------------- */
 /* COMPUTED                                                                   */
 /* -------------------------------------------------------------------------- */
@@ -72,55 +76,67 @@ const selectedOption = ref(props.options[0]);
 /* -------------------------------------------------------------------------- */
 /* METHODS                                                                    */
 /* -------------------------------------------------------------------------- */
-const optionClick = (opt: { id: number; title: string }) => {
-  console.log(opt);
-  selectedOption.value = opt;
-  emit('optionClick', selectedOption.value);
+const itemClick = (item: {
+  id: number;
+  title: string;
+  description: string;
+  icon?: string;
+  iconBgColor?: string;
+}) => {
+  console.log(item);
+  selectedItem.value = item;
+  emit('itemClick', selectedItem.value);
 };
+
 /* -------------------------------------------------------------------------- */
 /* LIFECYCLE HOOKS                                                            */
 /* -------------------------------------------------------------------------- */
 onMounted(() => {
-  console.log('Radio Component Mounted');
+  console.log('Item List Component Mounted');
 });
 
 onUnmounted(() => {
-  console.log('Radio Component Unmounted');
+  console.log('Item List Component Unmounted');
 });
 </script>
 
 <style scoped lang="scss">
-.radio-container {
-  width: 100px;
-  height: 30px;
+.main-item-container {
+  &:hover {
+    background-color: rgb(91, 93, 93);
+  }
+  background-color: rgb(72, 79, 79);
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
+  padding: 6px;
+  gap: 12px;
+  width: 300px;
+  cursor: pointer;
 
-.icon-radio-container {
-  position: relative;
-
-  .big-circle {
-    width: 19px;
-    height: 19px;
-    border: 2px solid $primary;
-    border-radius: 100%;
-  }
-
-  .small-circle {
-    width: 11px;
-    height: 11px;
+  .circle-container {
     background-color: $primary;
     border-radius: 100%;
-    position: absolute;
-    bottom: 4px;
-    left: 4px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
   }
-}
 
-.text-radio-container {
-  font-size: 16px;
+  .item-text-container {
+    padding: 6px;
+
+    .item-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: beige;
+    }
+
+    .item-description {
+      font-size: 12px;
+      color: rgb(213, 213, 196);
+    }
+  }
 }
 </style>
