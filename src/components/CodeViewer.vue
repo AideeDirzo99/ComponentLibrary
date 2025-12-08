@@ -69,8 +69,13 @@ watch(
  */
 const loadCodeFile = async () => {
   try {
-    const module = await import(`../componentsTextCode/${props.fileName}?raw`);
-    cleanedCode.value = module.default.trimStart();
+    const response = await fetch(`/componentsTextCode/${props.fileName}`);
+    if (!response.ok) {
+      throw new Error('File not found');
+    }
+
+    const text = await response.text();
+    cleanedCode.value = text.trimStart();
 
     await nextTick();
     document.querySelectorAll('pre code').forEach((block) => {

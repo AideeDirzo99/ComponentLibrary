@@ -4,7 +4,9 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title> Aidee Dirzo Camacho </q-toolbar-title>
+        <q-toolbar-title @click="router.push('/')" style="cursor: pointer">
+          Aidee Dirzo Camacho
+        </q-toolbar-title>
       </q-toolbar>
     </q-header>
     <q-drawer
@@ -29,9 +31,11 @@
 import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
 import { useQuasar } from 'quasar';
 import { useLayoutStore } from 'src/stores/example-store';
+import { useRouter } from 'vue-router';
 
 const $q = useQuasar();
 
+const router = useRouter();
 const isMobile = $q.platform.is.mobile;
 
 const linksList: EssentialLinkProps[] = [

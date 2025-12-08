@@ -2,7 +2,7 @@
   <div></div>
   <div class="main-container">
     <div class="main-card shadow-2">
-      <div class="main-card-picture"><img src="src/assets/profile-pic.png" alt="" /></div>
+      <div class="main-card-picture"><img src="/profile-pic.png" alt="" /></div>
       <ButtonComponent
         textValue="Contact Me"
         type="primary"
