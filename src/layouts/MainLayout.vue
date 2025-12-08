@@ -4,12 +4,17 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title> Component Library </q-toolbar-title>
+        <q-toolbar-title> Aidee Dirzo Camacho </q-toolbar-title>
       </q-toolbar>
     </q-header>
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
+    <q-drawer
+      :behavior="isMobile ? 'mobile' : 'desktop'"
+      v-model="useLayoutStore().isLeftDrawerOpen"
+      show-if-above
+      bordered
+    >
       <q-list>
-        <q-item-label header> Aidee Dirzo Camacho </q-item-label>
+        <q-item-label header> Component Library </q-item-label>
 
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
       </q-list>
@@ -21,13 +26,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
+import { useQuasar } from 'quasar';
+import { useLayoutStore } from 'src/stores/example-store';
+
+const $q = useQuasar();
+
+const isMobile = $q.platform.is.mobile;
 
 const linksList: EssentialLinkProps[] = [
   {
     title: 'Button Component',
-    link: '/',
+    link: '/button',
   },
   {
     title: 'Radio Input Component',
@@ -41,10 +51,13 @@ const linksList: EssentialLinkProps[] = [
     title: 'Item List Component',
     link: '/itemList',
   },
+  {
+    title: 'Checkbox List Component',
+    link: '/checkboxList',
+  },
 ];
-const leftDrawerOpen = ref(false);
 
 function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
+  useLayoutStore().isLeftDrawerOpen = !useLayoutStore().isLeftDrawerOpen;
 }
 </script>

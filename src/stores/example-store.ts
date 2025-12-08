@@ -1,21 +1,11 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 
-export const useCounterStore = defineStore('counter', {
+export const useLayoutStore = defineStore('layout', {
   state: () => ({
-    counter: 0,
+    isLeftDrawerOpen: false,
   }),
-
-  getters: {
-    doubleCount: (state) => state.counter * 2,
-  },
-
-  actions: {
-    increment() {
-      this.counter++;
-    },
-  },
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useCounterStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useLayoutStore, import.meta.hot));
 }
