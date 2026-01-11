@@ -53,10 +53,12 @@
           aria-label="Menu"
           @click="useLayoutStore().isLeftDrawerOpen = !useLayoutStore().isLeftDrawerOpen"
         />
-        <div class="library-section-text">
-          Explore a few examples of my work in my custom component library
-        </div>
+        <div>Explore a few examples of my work in my custom component library</div>
       </div>
+      <a href="https://easyjobtracking.netlify.app/#/" target="_blank" class="library-section-2">
+        <q-btn flat dense round icon="link" />
+        <div>Check out my latest project on production: Easy Job Tracker</div>
+      </a>
     </div>
   </div>
 
@@ -272,6 +274,19 @@ const downloadPdf = () => {
     align-items: center;
     gap: 6px;
     padding-top: 25px;
+    @media (max-width: 1000px) {
+      width: 90vw;
+      padding-top: 10px;
+    }
+  }
+  .library-section-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding-top: 25px;
+    color: black;
+    text-decoration: none;
     @media (max-width: 1000px) {
       width: 90vw;
       padding-top: 10px;
