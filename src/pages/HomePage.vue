@@ -57,7 +57,10 @@
       </div>
       <a href="https://easyjobtracking.netlify.app/#/" target="_blank" class="library-section-2">
         <q-btn flat dense round icon="link" />
-        <div>Check out my latest project on production: Easy Job Tracker</div>
+        <div>
+          Check out my latest project on production: Easy Job Tracker <br />
+          <small>(Test credentials: admin@gmail.com / admin123 )</small>
+        </div>
       </a>
     </div>
   </div>
